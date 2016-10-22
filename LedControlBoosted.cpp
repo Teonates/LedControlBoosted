@@ -215,11 +215,25 @@ static inline void resDigitalPin(byte pin)
 	}
 }
 
+static inline void tickDigitalPin(byte pin)
+{
+	if(pin<=7)
+	{
+		PORTD = PORTD | (1<<pin);
+		PORTD = PORTD & (~(1<<pin));
+	}
+	else
+	{
+		PORTB = PORTB | (1<<(pin-8));
+		PORTB = PORTB & (~(1<<(pin-8)));
+	}
+}
+
 
 void myShiftOut(byte dataPin, byte clockPin, byte bitOrder, byte data)
 {
 	resDigitalPin(clockPin);
-	resDigitalPin(dataPin);
+	//resDigitalPin(dataPin);
 
 	if (bitOrder == LSBFIRST)
 	{
@@ -233,8 +247,7 @@ void myShiftOut(byte dataPin, byte clockPin, byte bitOrder, byte data)
 			{
 				resDigitalPin(dataPin);
 			}
-			setDigitalPin(clockPin);
-			resDigitalPin(clockPin);
+			tickDigitalPin(clockPin);
 		}
 	}
 	else
@@ -249,8 +262,7 @@ void myShiftOut(byte dataPin, byte clockPin, byte bitOrder, byte data)
 			{
 				resDigitalPin(dataPin);
 			}
-			setDigitalPin(clockPin);
-			resDigitalPin(clockPin);
+			tickDigitalPin(clockPin);
 		}
 	}
 }
