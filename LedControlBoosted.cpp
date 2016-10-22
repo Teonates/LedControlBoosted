@@ -232,7 +232,7 @@ static inline void tickDigitalPin(byte pin)
 
 void myShiftOut(byte dataPin, byte clockPin, byte bitOrder, byte data)
 {
-	resDigitalPin(clockPin);
+	//resDigitalPin(clockPin);
 	//resDigitalPin(dataPin);
 
 	if (bitOrder == LSBFIRST)
